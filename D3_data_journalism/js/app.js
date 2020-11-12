@@ -22,7 +22,7 @@ var chartGroup = svg.append("g")
 // Import Data
 d3.csv("D3_data_journalism/data/data.csv").then(function(sourceData) {
 
-    //Parse Data/Cast as numbers
+    //Casting as numbers
     sourceData.forEach(function(data) {
       data.income = +data.income;
       data.smokes = +data.smokes;
@@ -41,7 +41,7 @@ d3.csv("D3_data_journalism/data/data.csv").then(function(sourceData) {
     var bottomAxis = d3.axisBottom(xLinearScale);
     var leftAxis = d3.axisLeft(yLinearScale);
 
-    //Append Axes to the chart
+    //Append axes to the chart
     chartGroup.append("g")
       .attr("transform", `translate(0, ${height})`)
       .call(bottomAxis);
@@ -63,7 +63,7 @@ d3.csv("D3_data_journalism/data/data.csv").then(function(sourceData) {
         .classed("stateCircle", true)
     );
 
-    //Create Circles
+    //Create circles
     var circlesGroup = chartGroup.selectAll("circle")
     .data(sourceData)
     .enter()
@@ -78,7 +78,7 @@ d3.csv("D3_data_journalism/data/data.csv").then(function(sourceData) {
     // Initialize tool tip
     var toolTip = d3.tip()
       .attr("class", "tooltip")
-      .offset([100, 40])
+      .offset([100, 30])
       .html(function(d) {
         return (`State: ${d.state}<br>Smokes ${d.smokes}%<br>Income: ${d.income}$`);
       });
@@ -86,7 +86,7 @@ d3.csv("D3_data_journalism/data/data.csv").then(function(sourceData) {
     // Tooltip in the chart
     chartGroup.call(toolTip);
 
-    // Create event listener to display and hide the tooltip
+    // Event Listener for tooltip
     circlesGroup.on("mouseover", function(data) {
       toolTip.show(data, this);
     })
